@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'https://church-website-backend.onrender.com';
+const url = 'http://localhost:5000';
 
 
 let token;
