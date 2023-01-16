@@ -55,8 +55,6 @@ function SundayTeachings() {
         })
     }
 
-    console.log(teachings)
-
 
 
   return (

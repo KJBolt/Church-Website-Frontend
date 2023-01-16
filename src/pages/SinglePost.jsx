@@ -86,7 +86,7 @@ function SinglePost() {
                                 </div>
                                 <div className="right">
                                     <div className="like">
-                                        {r_post && r_post?.like.includes(user._id) ?
+                                        {r_post && r_post?.like?.includes(user._id) ?
                                             <BsHeartFill
                                                 style={{
                                                     fontSize:'22px',

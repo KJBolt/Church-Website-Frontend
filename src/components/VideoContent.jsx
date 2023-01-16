@@ -102,7 +102,7 @@ function VideoContent({toast}) {
                     <div className="icons">
                       <div className="video-icons">
 
-                        {rVideo?.likes.includes(user?._id) ? 
+                        {rVideo.likes?.includes(user?._id) ? 
                         <div className="one" onClick={() => handleLike(rVideo._id)}>
                           <AiFillLike style={{ fontSize: '20px', marginRight: '10px' }} />
                           <p>{ rVideo?.likeCount}</p>
