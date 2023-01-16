@@ -4,22 +4,21 @@ import {FaRegEye} from 'react-icons/fa';
 import {publicRequest} from "../../requestMethods";
 import {Link} from 'react-router-dom';
 import '../../spinner.css';
-import {useDispatch, useSelector} from "react-redux";
-import { getRecentPosts } from '../../redux/postSlice';
+import {useDispatch} from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function RecentPost() {
     const [loading, setLoading] = useState(false);
+    const [recentPosts, setRecentPosts] = useState([])
     const dispatch = useDispatch();
-    const r_recent = useSelector((state) => state.post.recentPosts)
 
     useEffect(() => {
         const fetchRecent = async () => {
             try {
                 setLoading(true);
                 const res = await publicRequest.get('/teaching/random');
-                dispatch(getRecentPosts(res.data))
+                setRecentPosts(res.data)
                 setLoading(false);
             } catch (error) {
                 toast.error(error.response.status === 500 && "Network Error. Check connection and try again")
@@ -30,9 +29,6 @@ function RecentPost() {
         fetchRecent();
     }, [dispatch]);
 
-    // const countlikes = (postId) => {
-    //     return user.like.filter((id) => id === postId).length
-    // }
 
     return (
         <>
@@ -40,7 +36,7 @@ function RecentPost() {
             <div className="recent-posts">
                 <h6>Recent Posts</h6>
                 {loading ? <div className="loader">Loading...</div> :<div className="row">
-                        {r_recent && r_recent.map((recentPost) => (
+                        {recentPosts && recentPosts.map((recentPost) => (
                             <div className="item col-md-4 col-sm-6 col-12" key={recentPost._id}>
                                 <Link  to={`/post/${recentPost._id}`} style={{ textDecoration:'none', color:'black' }}>
                                     <div className="image">
@@ -63,7 +59,7 @@ function RecentPost() {
                                         </div>
                                     </div>
                                     <div className="right">
-                                        <p>{r_recent !== null ? recentPost?.likeCount : 0 } {`${recentPost?.likeCount <= 1 ? 'like' : 'likes'}`}</p>
+                                        <p>{recentPosts !== null ? recentPost?.likeCount : 0 } {`${recentPost?.likeCount <= 1 ? 'like' : 'likes'}`}</p>
                                     </div>
                                 </div>
                             </div>

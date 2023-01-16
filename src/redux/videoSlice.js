@@ -4,8 +4,7 @@ const videoSlice = createSlice({
     name: 'video',
     initialState: {
         currentVideo: {},
-        comments: [],
-        videos: []
+        comments: []
     },
     reducers: {
         getVideo: (state, action) => {
@@ -23,11 +22,8 @@ const videoSlice = createSlice({
         getComments: (state, action) => {
             state.comments = action.payload
         },
-        getVideos: (state, action) => {
-            state.videos = action.payload
-        }
     }
 });
 
-export const {getVideo, likeVideo, getComments, getVideos} = videoSlice.actions;
+export const {getVideo, likeVideo, getComments} = videoSlice.actions;
 export default videoSlice.reducer;

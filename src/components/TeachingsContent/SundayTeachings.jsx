@@ -6,25 +6,24 @@ import {RxDotsVertical} from 'react-icons/rx';
 import {FaRegComment} from 'react-icons/fa';
 import {FaRegEye} from 'react-icons/fa';
 import '../../spinner.css';
-import { getAllPosts } from '../../redux/postSlice';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import moment from 'moment';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function SundayTeachings() {
     const [loading, setLoading] = useState(false);
+    const [teachings, setTeachings] = useState([]);
     const [page, setPage] = useState(1)
     const [pageCount, setPageCount] = useState(0)
     const dispatch = useDispatch();
-    const r_post = useSelector((state) => state.post.getPosts);
 
     useEffect(() => {
         const fetchTeachings = async() => {
             try {
                 setLoading(true);
                 const res = await publicRequest.get(`/teaching/all?page=${page}`);
-                dispatch(getAllPosts(res.data))
+                setTeachings(res.data)
                 setLoading(false); 
             } catch (error) {
                 toast.error(error.message)
@@ -36,10 +35,10 @@ function SundayTeachings() {
     }, [dispatch, page]);
 
     useEffect(() => {
-        if (r_post) {
-            setPageCount(r_post?.pagination.pageCount)
+        if (teachings) {
+            setPageCount(teachings.pagination?.pageCount)
         }
-    }, [r_post])
+    }, [teachings])
 
     // Pagination Logic
     const handlePrev = () => {
@@ -55,6 +54,8 @@ function SundayTeachings() {
             return p + 1
         })
     }
+
+    console.log(teachings)
 
 
 
@@ -76,9 +77,9 @@ function SundayTeachings() {
                 
                 {loading ? <div className="loader">Loading...</div> : <div className="st-content">
                     <div className="row">
-                        {r_post?.items.length === 0 ? <p className='no-content'>No Result found</p> :
+                        {teachings.items?.length === 0 ? <p className='no-content'>No Result found</p> :
                         <>
-                            {r_post?.items.map((teaching) => (
+                            {teachings.items?.map((teaching) => (
                                 <div className="content col-lg-4 col-md-6 col-sm-6 col-12" key={teaching._id}>
 
                                     <div className="content-wrapper">
@@ -124,7 +125,7 @@ function SundayTeachings() {
                                                 </div>
                                             </div>
                                             <div className="right">
-                                                <p>{r_post !== null ? teaching?.likeCount : 0} {`${teaching?.likeCount <= 1 ? 'like' : 'likes'}`}</p>
+                                                <p>{teachings !== null ? teaching?.likeCount : 0} {`${teaching?.likeCount <= 1 ? 'like' : 'likes'}`}</p>
                                             </div>
                                         </div>
                                     </div>
