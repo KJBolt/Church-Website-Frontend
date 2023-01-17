@@ -58,17 +58,14 @@ function Login() {
                 setLoading(false)
                 dispatch(login(response.data));
                 if (user !== null) {
-                    navigate('/home');
+                    navigate('/');
                     window.location.reload()
                 }
             }
         } catch (error) {
             toast.error(`${error.response.data.message}`)
             setLoading(false)
-            
         }
-
-
     };
 
     return (
