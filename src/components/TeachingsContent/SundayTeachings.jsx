@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import {publicRequest} from "../../requestMethods";
 import parse from 'html-react-parser';
 import {RxDotsVertical} from 'react-icons/rx';
-import {FaRegComment} from 'react-icons/fa';
 import {FaRegEye} from 'react-icons/fa';
 import '../../spinner.css';
 import {useDispatch} from "react-redux";
@@ -115,11 +114,8 @@ function SundayTeachings() {
 
                                         <div className="action-buttons">
                                             <div className="left">
-                                                <div className="first">
-                                                    <p>0 <FaRegComment style={{fontSize:'18px'}}/></p>
-                                                </div>
                                                 <div className="second">
-                                                    <p><FaRegEye style={{fontSize:'22px'}}/></p>
+                                                    <p><FaRegEye style={{fontSize:'22px'}}/> {teaching?.views}</p>
                                                 </div>
                                             </div>
                                             <div className="right">

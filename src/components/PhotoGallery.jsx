@@ -10,8 +10,10 @@ function PhotoGallery() {
                 <div className="pg-container">
                     <div className="row">
                         {steachings.map((data) => (
-                            <div className="pg-image col-md-4 col-sm-6 col-12" key={data.id}>
-                                <img src={data.image} alt=""/>
+                            <div key={data.id} className='pg-imageWrapper col-lg-4 col-md-6 col-sm-12 col-12'>
+                                <div className="pg-image " >
+                                    <img src={data.image} alt=""/>
+                                </div>
                             </div>
                         ))}
                     </div>

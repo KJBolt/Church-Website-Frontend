@@ -1975,9 +1975,10 @@
   overflow-x: hidden;
 }
 
+
 .photo-gallery .pg-container .row .pg-image{
   height: 500px;
-  width: 400px;
+  width: 380px;
   margin-bottom: 20px;
   overflow: hidden;
   border-radius: 10px;
@@ -2500,16 +2501,20 @@
 
 
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1246px){
   .tc-wrapper .row .left .image{
     height: 700px;
-    width: 400px;
+    width: 380px;
   }
 
   .row .right .fc-image{
     height: 700px;
     width: 450px;
     object-fit: scale-down;
+  }
+
+  .photo-gallery .pg-container .row .pg-image{
+    width: 300px;
   }
 
 }
@@ -2805,6 +2810,15 @@
       width: 90%;
   }
 
+  .pg-imageWrapper{
+    display: flex;
+    justify-content: center;
+  }
+
+  .photo-gallery .pg-container .row .pg-image{
+    width: 300px;
+  }
+
 }
 
 
@@ -2904,6 +2918,8 @@
   .verifyEmail .verify-wrapper{
     width: 90%;
   }
+
+  
 
   
 }

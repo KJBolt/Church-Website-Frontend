@@ -10,6 +10,7 @@ import {auth, provider} from '../firebase';
 import {signInWithPopup } from "firebase/auth";
 
 function Login() {
+    const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
@@ -26,9 +27,9 @@ function Login() {
             });
             dispatch(login(res.data));
             navigate('/home');
-            setTimeout(() => {
-                window.location.reload();
-            },1000)
+            // setTimeout(() => {
+            //     window.location.reload();
+            // },1000)
         } catch (error) {
             toast.error(error.response.data)
         }
@@ -48,10 +49,13 @@ function Login() {
 
     const handleLogin = async() => {
         try {
+            setLoading(true)
             if (email === '' || password === '') {
                 toast.error("Please fill fields correctly");
+                setLoading(false)
             } else {
                 const response = await publicRequest.post('/auth/login', {email:email,password:password});
+                setLoading(false)
                 dispatch(login(response.data));
                 if (user !== null) {
                     navigate('/home');
@@ -60,6 +64,8 @@ function Login() {
             }
         } catch (error) {
             toast.error(`${error.response.data.message}`)
+            setLoading(false)
+            
         }
 
 
@@ -84,7 +90,13 @@ function Login() {
                                 <input type="email" placeholder='Email Address' onChange={(e) => setEmail(e.target.value)} required/>
                                 <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} required/>
                                 <br/>
-                                <button className='btn1' onClick={handleLogin}>Login</button>
+                                {loading ? 
+                                    <button className="btn1" type="button" disabled>
+                                        Loading
+                                        <span className="spinner-border spinner-border-sm ms-1" role="status" aria-hidden="true"></span>
+                                    </button> : 
+                                    <button className='btn1' onClick={handleLogin}>Login</button>
+                                }
                                 <br/>
                                 <button className='btn2' onClick={handleOAuth}>
                                     <img src={require('../assets/google.png')} alt='' height={30} width={30}/>

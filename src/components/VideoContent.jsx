@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {AiOutlineLike, AiFillLike} from 'react-icons/ai';
 import {BiShare} from 'react-icons/bi';
-import {GrView} from 'react-icons/gr';
+import {FaRegEye} from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import { publicRequest, userRequest } from '../requestMethods';
 import Comments from './Comment/Comments';
@@ -113,7 +113,7 @@ function VideoContent({toast}) {
                         </div>}
 
                         <div className="two">
-                          <GrView style={{ fontSize: '20px', marginRight: '10px' }} />
+                          <FaRegEye style={{ fontSize: '20px', marginRight: '10px' }} />
                           <p>{rVideo?.views}</p>
                         </div>
                         <div className="three" onClick={() => handleOpen()}>

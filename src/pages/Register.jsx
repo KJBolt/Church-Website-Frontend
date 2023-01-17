@@ -8,6 +8,7 @@ import validator from "validator";
 
 
 function Register() {
+    const [loading, setLoading] = useState(false)
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [emailError,setEmailError] = useState('');
@@ -57,18 +58,21 @@ function Register() {
     // Execute the register function
     const handleRegister = async() => {
         try {
+            setLoading(true)
             if (usernameError === ''  || email === '' || password === '') {
                 toast.error("Please fill the form correctly");
+                setLoading(false)
             } else if (usernameError === 'Good' && validator.isEmail(email) && passwordError === 'Good') {
-                console.log(username,email,password)
                 await publicRequest.post('/auth/register', {username:username, email:email, password:password});
                 toast.success('Registration Successful');
+                setLoading(false)
                 setTimeout(() => {
                     navigate('/verify-email');
                 }, 3000);
             }
         } catch (error) {
             toast.error(`${error.response.data.message}`)
+            setLoading(false)
         }
     };
 
@@ -97,7 +101,12 @@ function Register() {
                                 <input type="password" placeholder='Password' onChange={(e) => validatePassword(e.target.value)} />
                                 {passwordError === '' ? null :<p style={{ display:'flex', justifyContent:'left', fontWeight:500, color:'orange'}}>{passwordError}</p>}
                                 <br/>
-                                <button className='btn1' onClick={handleRegister}>Register</button>
+                                {loading ? 
+                                <button className="btn1" type="button" disabled>
+                                    Loading
+                                    <span className="spinner-border spinner-border-sm ms-1" role="status" aria-hidden="true"></span>
+                                </button>
+                                :<button className='btn1' onClick={handleRegister}>Register</button>}
                                 <div className="link">
                                     <p>Already a user? <Link to='/login' style={{textDecoration:'none', color:'#f45d48'}}>Login</Link></p>
                                 </div>

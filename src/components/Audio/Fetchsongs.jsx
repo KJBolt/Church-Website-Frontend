@@ -39,7 +39,7 @@ function Fetchsongs({setPlay, setPlaying, ended}) {
   return (
     <>
         <div className='fetch-container'>
-            {loading ? <div className="loading">Loading...</div> : <>
+            {loading ? <div className="loader">Loading...</div> : <>
                 {audios.map((audio) => (
                     <div className="fetch-item" key={audio._id} onClick={() => handlePlay(audio.audio, audio._id)}>
                         <div className="left">
